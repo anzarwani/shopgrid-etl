@@ -2,8 +2,6 @@
 
 A real-world, production-style ETL pipeline built without Docker or Kafka — designed for simplicity, clarity, and extensibility.
 
----
-
 ## Project Structure
 
 - **`generator/`** — Python script to generate synthetic product transactions and send via HTTP
@@ -13,13 +11,12 @@ A real-world, production-style ETL pipeline built without Docker or Kafka — de
 - **`staging/`** — Temporary holding for incoming data
 - **`config/`** — Database credentials (not tracked by Git)
 
----
-
 ## Quick Start
 
 ### 1. Setup PostgreSQL
 
 Create table:
+
 ```sql
 CREATE TABLE transactions (
     transaction_id UUID PRIMARY KEY,
@@ -29,19 +26,28 @@ CREATE TABLE transactions (
     price NUMERIC,
     timestamp TIMESTAMP
 );
- 
+```
+
 ### 2. Install Dependencies
 
+```bash
 pip install -r requirements.txt
+```
 
 ### 3. Run the ingestion API
 
+```bash
 uvicorn ingestion.fastapi_ingress:app --reload
+```
 
 ### 4. Send test data
 
+```bash
 python generator/generator_http.py
+```
 
 ### 5. Run ETL manually
 
+```bash
 python etl/etl_processor_pg.py
+```
